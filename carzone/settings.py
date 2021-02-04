@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '243p#@408q#7jio7aq=#)*thtyq*9amb%$sy!%1ezpu+m8_rv('
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'carzone.urls'
@@ -93,15 +95,21 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'carzone_db',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-    }
-}
+#! Development
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('POSTGRES_DB'),
+#         'USER': config('POSTGRES_USER'),
+#         'PASSWORD': config('POSTGRES_PASS'),
+#         'HOST': config('POSTGRES_HOST'),
+#     }
+# }
+
+#! Production
+# DATABASES = {'default': dj_database_url.config(default='postgres://user:pass@localhost/db_name')}
+DATABASES = {'default': dj_database_url.config(default=f'postgres://postgres:root@localhost/carzone_db')}
+
 
 
 # Password validation
@@ -168,8 +176,11 @@ LOGIN_URL='login'
 LOGOUT_URL='logout'
 
 # Email SMTP
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = 'khomosikhuzema894@gmail.com'
-EMAIL_HOST_PASSWORD = 'Khuzi786$'
-EMAIL_USE_TLS = True
+EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+
+# Whitenoise settings
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
