@@ -116,7 +116,7 @@ else:
     #     host=config('POSTGRES_HOST'), 
     #     db_name=config('POSTGRES_DB')
     # ))}
-    DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/carzone_db')}
+    DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@127.0.0.1/carzone_db')}
 
 
 
