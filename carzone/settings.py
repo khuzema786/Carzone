@@ -28,8 +28,7 @@ if config('DEVELOPMENT') == 'True':
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 else: 
-    DEBUG = config('DEBUG')
-
+    DEBUG = True
 ALLOWED_HOSTS = ['carzone-rental.herokuapp.com']
 
 
