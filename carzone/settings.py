@@ -28,7 +28,7 @@ if config('DEVELOPMENT'):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 else: 
-    DEBUG = False
+    DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['https://carzone-rental.herokuapp.com/']
 
@@ -99,24 +99,24 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if config('DEVELOPMENT'):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('POSTGRES_DB'),
-            'USER': config('POSTGRES_USER'),
-            'PASSWORD': config('POSTGRES_PASS'),
-            'HOST': config('POSTGRES_HOST'),
-        }
-    }
-else:    
+# if config('DEVELOPMENT'):
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': config('POSTGRES_DB'),
+#             'USER': config('POSTGRES_USER'),
+#             'PASSWORD': config('POSTGRES_PASS'),
+#             'HOST': config('POSTGRES_HOST'),
+#         }
+#     }
+# else:    
     # DATABASES = {'default': dj_database_url.config(default='postgres://{user}:{password}@{host}/{db_name}'.format(
     #     user=config('POSTGRES_USER'), 
     #     password=config('POSTGRES_PASS'), 
     #     host=config('POSTGRES_HOST'), 
     #     db_name=config('POSTGRES_DB')
     # ))}
-    DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@127.0.0.1/carzone_db')}
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/carzone_db')}
 
 
 
