@@ -29,7 +29,12 @@ if config('DEVELOPMENT') == 'True':
     DEBUG = True
 else: 
     DEBUG = True
-ALLOWED_HOSTS = ['carzone-rental.herokuapp.com']
+
+if config('DEVELOPMENT') == 'True':
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['carzone-rental.herokuapp.com']
+
 
 
 # Application definition
