@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-if bool(config('DEVELOPMENT')):
+if config('DEVELOPMENT') == 'True':
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 else: 
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if bool(config('DEVELOPMENT')):
+if config('DEVELOPMENT') == 'True':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -180,7 +180,7 @@ LOGIN_REDIRECT_URL='dashboard'
 LOGIN_URL='login'
 LOGOUT_URL='logout'
 
-if bool(config('EMAIL_INTEGRATION')):
+if config('EMAIL_INTEGRATION') == 'True':
     # Email SMTP
     EMAIL_HOST = config('EMAIL_HOST', default='localhost')
     EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
@@ -188,6 +188,6 @@ if bool(config('EMAIL_INTEGRATION')):
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
-if bool(config('DEVELOPMENT')) != True:
+if config('DEVELOPMENT') != 'True':
     # Whitenoise settings
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
