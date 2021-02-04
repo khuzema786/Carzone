@@ -30,7 +30,7 @@ if config('DEVELOPMENT'):
 else: 
     DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://carzone-rental.herokuapp.com/']
 
 
 # Application definition
