@@ -24,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-if config('DEVELOPMENT'):
+if bool(config('DEVELOPMENT')):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 else: 
     DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['https://carzone-rental.herokuapp.com/']
+ALLOWED_HOSTS = ['carzone-rental.herokuapp.com']
 
 
 # Application definition
@@ -99,26 +99,23 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# if config('DEVELOPMENT'):
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': config('POSTGRES_DB'),
-#             'USER': config('POSTGRES_USER'),
-#             'PASSWORD': config('POSTGRES_PASS'),
-#             'HOST': config('POSTGRES_HOST'),
-#         }
-#     }
-# else:    
-    # DATABASES = {'default': dj_database_url.config(default='postgres://{user}:{password}@{host}/{db_name}'.format(
-    #     user=config('POSTGRES_USER'), 
-    #     password=config('POSTGRES_PASS'), 
-    #     host=config('POSTGRES_HOST'), 
-    #     db_name=config('POSTGRES_DB')
-    # ))}
-DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/carzone_db')}
-
-
+if bool(config('DEVELOPMENT')):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('POSTGRES_DB'),
+            'USER': config('POSTGRES_USER'),
+            'PASSWORD': config('POSTGRES_PASS'),
+            'HOST': config('POSTGRES_HOST'),
+        }
+    }
+else:    
+    DATABASES = {'default': dj_database_url.config(default='postgres://{user}:{password}@{host}/{db_name}'.format(
+        user=config('POSTGRES_USER'), 
+        password=config('POSTGRES_PASS'), 
+        host=config('POSTGRES_HOST'), 
+        db_name=config('POSTGRES_DB')
+    ))}    
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -183,7 +180,7 @@ LOGIN_REDIRECT_URL='dashboard'
 LOGIN_URL='login'
 LOGOUT_URL='logout'
 
-if config('EMAIL_INTEGRATION'):
+if bool(config('EMAIL_INTEGRATION')):
     # Email SMTP
     EMAIL_HOST = config('EMAIL_HOST', default='localhost')
     EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
@@ -191,6 +188,6 @@ if config('EMAIL_INTEGRATION'):
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
-if config('DEVELOPMENT') != True:
+if bool(config('DEVELOPMENT')) != True:
     # Whitenoise settings
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
