@@ -110,12 +110,13 @@ if config('DEVELOPMENT'):
         }
     }
 else:    
-    DATABASES = {'default': dj_database_url.config(default='postgres://{user}:{password}@{host}/{db_name}'.format(
-        user=config('POSTGRES_USER'), 
-        password=config('POSTGRES_PASS'), 
-        host=config('POSTGRES_HOST'), 
-        db_name=config('POSTGRES_DB')
-    ))}
+    # DATABASES = {'default': dj_database_url.config(default='postgres://{user}:{password}@{host}/{db_name}'.format(
+    #     user=config('POSTGRES_USER'), 
+    #     password=config('POSTGRES_PASS'), 
+    #     host=config('POSTGRES_HOST'), 
+    #     db_name=config('POSTGRES_DB')
+    # ))}
+    DATABASES = {'default': dj_database_url.config(default='postgres://postgres:root@localhost/carzone_db')}
 
 
 
@@ -190,6 +191,6 @@ if config('EMAIL_INTEGRATION'):
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
-if not config('DEVELOPMENT'):
+if config('DEVELOPMENT') != True:
     # Whitenoise settings
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
