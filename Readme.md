@@ -36,6 +36,20 @@
     python manage.py runserver 127.0.0.1:8000
     ```
 
+# Some Included Functionalities
+- PostgreSQL Database Setup
+- Django Static Files & Media Files
+- Django Admin Customisation
+- Database Schema, Models and Migrations
+- Implementing RichText Editor & Multi-Select Fields on Admin Backend
+- Fetching Database Objects
+- Pagination
+- Search Functionality
+- User Authentication
+- Login with Facebook & Login with Google
+- Send Emails  
+
+## Some Important commands
 ### Virtual Environment Setup
 ```
 Pip install virtualenv
