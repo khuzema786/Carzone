@@ -1,4 +1,5 @@
 # Tech Mahindra Task 1 Pre-requisites – Learn Django Web Framework
+![Project](https://github.com/khuzema786/Carzone/blob/master/carzone.gif)
 
 ## To get started
 - Clone the repository
